@@ -1,12 +1,21 @@
-package rest_with_spring_boot_and_java_erudio.model;
+package rest_with_spring_boot_and_java_erudio.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = 1l;
 
+    //private static final long serialVersionUID = 1l;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String firstName;
     private String lastName;

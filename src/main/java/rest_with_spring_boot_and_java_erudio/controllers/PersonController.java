@@ -2,7 +2,7 @@ package rest_with_spring_boot_and_java_erudio.controllers;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import rest_with_spring_boot_and_java_erudio.model.Person;
+import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
 import rest_with_spring_boot_and_java_erudio.services.PersonService;
 
 import java.util.List;
@@ -19,25 +19,25 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable String id){
+    public PersonDTO findById(@PathVariable String id){
         return personService.findById(id);
     }
 
     @GetMapping()
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         return personService.findAll();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person){
-        return personService.create(person);
+    public PersonDTO create(@RequestBody PersonDTO personDTO){
+        return personService.create(personDTO);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person){
-        return personService.update(person);
+    public PersonDTO update(@RequestBody PersonDTO personDTO){
+        return personService.update(personDTO);
     }
 
     @DeleteMapping(value = "/{id}")

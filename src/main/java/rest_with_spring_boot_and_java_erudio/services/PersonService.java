@@ -1,7 +1,10 @@
 package rest_with_spring_boot_and_java_erudio.services;
 
 import org.springframework.stereotype.Service;
-import rest_with_spring_boot_and_java_erudio.model.Person;
+import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
+import rest_with_spring_boot_and_java_erudio.entities.Person;
+import rest_with_spring_boot_and_java_erudio.mappers.PersonMapper;
+import rest_with_spring_boot_and_java_erudio.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,38 +14,59 @@ import java.util.logging.Logger;
 @Service
 public class PersonService {
 
-    private final AtomicLong counter = new AtomicLong();
+    private final PersonMapper mapper;
+    private final PersonRepository personRepository;
+//    private final AtomicLong counter = new AtomicLong();
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
-    public Person findById(String id){
+    public PersonService(PersonMapper mapper, PersonRepository personRepository) {
+        this.mapper = mapper;
+        this.personRepository = personRepository;
+    }
+
+    public PersonDTO findById(String id){
         logger.info("Finding one Person!");
 
-        return new Person(counter.incrementAndGet(), "Bruno", "Elias",
-                "Mogi das Cruzes", "Male");
+        return mapper.toDTO(this.findProfessor(id));
     }
 
-    public List<Person> findAll(){
-        List<Person> persons = new ArrayList<>();
-        for(int i=0; i<8; i++) persons.add(mockPerson(i));
-        return persons;
+    public List<PersonDTO> findAll(){
+        logger.info("Finding All!");
+        List<PersonDTO> dtos = new ArrayList<>();
+        personRepository.findAll().forEach(
+                person -> dtos.add(mapper.toDTO(person)));
+        return dtos;
     }
 
-    private Person mockPerson(int i){
-        return new Person(counter.incrementAndGet(), "FirstName_" + i,
-                "LastName_" + i, "Address_" + i, "Binario");
-    }
-
-    public Person create(Person person) {
+    public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating new person");
-        return person;
+        return mapper.toDTO(savePerson(mapper.toObject(personDTO)));
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO personDTO) {
         logger.info("Updating a person");
-        return person;
+        Person person = this.findProfessor(personDTO.getId());
+        mapper.putData(person, personDTO);
+        return mapper.toDTO(this.savePerson(person));
     }
 
     public void delete(String id){
         logger.info("Deleting a person");
+
+        personRepository.delete(this.findProfessor(id));
     }
+
+    private Person savePerson(Person person){
+        return personRepository.save(person);
+    }
+
+    private Person findProfessor(String id){
+        return personRepository.findById(Long.parseLong(id))
+                .orElseThrow(() -> new RuntimeException("Person not found"));
+    }
+
+//    private Person mockPerson(int i){
+//        return new Person(counter.incrementAndGet(), "FirstName_" + i,
+//                "LastName_" + i, "Address_" + i, "Binario");
+//    }
 }
