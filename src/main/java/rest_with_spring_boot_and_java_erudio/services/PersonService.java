@@ -8,7 +8,6 @@ import rest_with_spring_boot_and_java_erudio.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 @Service
@@ -43,9 +42,9 @@ public class PersonService {
         return mapper.toDTO(savePerson(mapper.toObject(personDTO)));
     }
 
-    public PersonDTO update(PersonDTO personDTO) {
+    public PersonDTO update(long id, PersonDTO personDTO) {
         logger.info("Updating a person");
-        Person person = this.findProfessor(personDTO.getId());
+        Person person = this.findProfessor(String.valueOf(id));
         mapper.putData(person, personDTO);
         return mapper.toDTO(this.savePerson(person));
     }

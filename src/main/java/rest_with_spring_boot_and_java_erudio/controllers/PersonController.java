@@ -1,9 +1,12 @@
 package rest_with_spring_boot_and_java_erudio.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
 import rest_with_spring_boot_and_java_erudio.services.PersonService;
+import rest_with_spring_boot_and_java_erudio.util.AppResponse;
+import rest_with_spring_boot_and_java_erudio.util.DataResponse;
 
 import java.util.List;
 
@@ -19,29 +22,29 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO findById(@PathVariable String id){
-        return personService.findById(id);
+    public AppResponse<DataResponse> findById(@PathVariable String id){
+        return AppResponse.success(personService.findById(id), "Search done");
     }
 
     @GetMapping()
-    public List<PersonDTO> findAll(){
-        return personService.findAll();
+    public AppResponse<DataResponse> findAll(){
+        return AppResponse.success(personService.findAll(), "Search done!");
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO create(@RequestBody PersonDTO personDTO){
-        return personService.create(personDTO);
+    public AppResponse<DataResponse> create(@RequestBody PersonDTO personDTO){
+        return AppResponse.success(personService.create(personDTO), "Saved successfully");
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO update(@RequestBody PersonDTO personDTO){
-        return personService.update(personDTO);
+    @PutMapping("/{id}")
+    public AppResponse<DataResponse> update(@PathVariable("id") long id, @RequestBody PersonDTO personDTO){
+        return AppResponse.success(personService.update(id, personDTO), "Update successfully");
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable String id){
+    public AppResponse<DataResponse>  delete(@PathVariable String id){
         personService.delete(id);
+        return AppResponse.success("Deletion performed!");
     }
 }
