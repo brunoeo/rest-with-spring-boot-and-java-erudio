@@ -1,8 +1,10 @@
 package rest_with_spring_boot_and_java_erudio.services;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
 import rest_with_spring_boot_and_java_erudio.entities.Person;
+import rest_with_spring_boot_and_java_erudio.exception.ExceptionResponse;
 import rest_with_spring_boot_and_java_erudio.mappers.PersonMapper;
 import rest_with_spring_boot_and_java_erudio.repositories.PersonRepository;
 
@@ -23,10 +25,11 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public PersonDTO findById(String id){
+    public PersonDTO findById(String id) throws ExceptionResponse {
         logger.info("Finding one Person!");
-
-        return mapper.toDTO(this.findProfessor(id));
+        PersonDTO dto = mapper.toDTO(this.findProfessor(id));
+        logger.info("Search done, name: " + dto.getFirstName());
+        return dto;
     }
 
     public List<PersonDTO> findAll(){
@@ -34,34 +37,41 @@ public class PersonService {
         List<PersonDTO> dtos = new ArrayList<>();
         personRepository.findAll().forEach(
                 person -> dtos.add(mapper.toDTO(person)));
+        logger.info("Search done, size of list: " + dtos.size());
         return dtos;
     }
 
     public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating new person");
-        return mapper.toDTO(savePerson(mapper.toObject(personDTO)));
+        PersonDTO dto = mapper.toDTO(savePerson(mapper.toObject(personDTO)));
+        logger.info("Saved successfully, name: " + dto.getFirstName());
+        return dto;
     }
 
-    public PersonDTO update(long id, PersonDTO personDTO) {
+    public PersonDTO update(long id, PersonDTO personDTO) throws ExceptionResponse {
         logger.info("Updating a person");
         Person person = this.findProfessor(String.valueOf(id));
         mapper.putData(person, personDTO);
-        return mapper.toDTO(this.savePerson(person));
+        PersonDTO dto = mapper.toDTO(this.savePerson(person));
+        logger.info("Saved successfully, name: " + dto.getFirstName());
+        return dto;
     }
 
-    public void delete(String id){
+    public void delete(String id) throws ExceptionResponse {
         logger.info("Deleting a person");
 
         personRepository.delete(this.findProfessor(id));
+
+        logger.info("Deletion performed!");
     }
 
     private Person savePerson(Person person){
         return personRepository.save(person);
     }
 
-    private Person findProfessor(String id){
+    private Person findProfessor(String id) throws ExceptionResponse {
         return personRepository.findById(Long.parseLong(id))
-                .orElseThrow(() -> new RuntimeException("Person not found"));
+                .orElseThrow(() -> new ExceptionResponse("Person not found", HttpStatus.NOT_FOUND));
     }
 
 //    private Person mockPerson(int i){

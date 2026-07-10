@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
+import rest_with_spring_boot_and_java_erudio.exception.ExceptionResponse;
 import rest_with_spring_boot_and_java_erudio.services.PersonService;
 import rest_with_spring_boot_and_java_erudio.util.AppResponse;
 import rest_with_spring_boot_and_java_erudio.util.DataResponse;
@@ -22,8 +23,8 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AppResponse<DataResponse> findById(@PathVariable String id){
-        return AppResponse.success(personService.findById(id), "Search done");
+    public AppResponse<DataResponse> findById(@PathVariable String id) throws ExceptionResponse {
+        return AppResponse.success(personService.findById(id), "Search done!");
     }
 
     @GetMapping()
@@ -38,12 +39,12 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public AppResponse<DataResponse> update(@PathVariable("id") long id, @RequestBody PersonDTO personDTO){
+    public AppResponse<DataResponse> update(@PathVariable("id") long id, @RequestBody PersonDTO personDTO) throws ExceptionResponse {
         return AppResponse.success(personService.update(id, personDTO), "Update successfully");
     }
 
     @DeleteMapping(value = "/{id}")
-    public AppResponse<DataResponse>  delete(@PathVariable String id){
+    public AppResponse<DataResponse>  delete(@PathVariable String id) throws ExceptionResponse {
         personService.delete(id);
         return AppResponse.success("Deletion performed!");
     }
