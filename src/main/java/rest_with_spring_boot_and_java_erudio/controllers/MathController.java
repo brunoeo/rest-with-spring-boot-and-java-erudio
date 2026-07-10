@@ -3,7 +3,7 @@ package rest_with_spring_boot_and_java_erudio.controllers;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rest_with_spring_boot_and_java_erudio.services.MathService;
+import rest_with_spring_boot_and_java_erudio.domain.services.MathService;
 
 @RestController
 @RequestMapping("/math")

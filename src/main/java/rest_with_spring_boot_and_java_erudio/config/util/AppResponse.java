@@ -1,4 +1,4 @@
-package rest_with_spring_boot_and_java_erudio.util;
+package rest_with_spring_boot_and_java_erudio.config.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

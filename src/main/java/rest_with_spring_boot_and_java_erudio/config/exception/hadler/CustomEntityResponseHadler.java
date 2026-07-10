@@ -1,12 +1,10 @@
-package rest_with_spring_boot_and_java_erudio.exception.hadler;
+package rest_with_spring_boot_and_java_erudio.config.exception.hadler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import rest_with_spring_boot_and_java_erudio.exception.ExceptionResponse;
-import rest_with_spring_boot_and_java_erudio.util.AppResponse;
-import rest_with_spring_boot_and_java_erudio.util.DataResponse;
-
-import java.util.Date;
+import rest_with_spring_boot_and_java_erudio.config.exception.ExceptionResponse;
+import rest_with_spring_boot_and_java_erudio.config.util.AppResponse;
+import rest_with_spring_boot_and_java_erudio.config.util.DataResponse;
 
 @ControllerAdvice
 public class CustomEntityResponseHadler {

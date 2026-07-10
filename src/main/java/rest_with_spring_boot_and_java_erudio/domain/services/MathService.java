@@ -1,7 +1,7 @@
-package rest_with_spring_boot_and_java_erudio.services;
+package rest_with_spring_boot_and_java_erudio.domain.services;
 
 import org.springframework.stereotype.Service;
-import rest_with_spring_boot_and_java_erudio.exception.UnsupportedMathOperationException;
+import rest_with_spring_boot_and_java_erudio.config.exception.UnsupportedMathOperationException;
 
 @Service
 public class MathService {

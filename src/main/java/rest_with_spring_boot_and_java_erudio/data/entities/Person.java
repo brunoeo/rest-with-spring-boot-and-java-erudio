@@ -1,4 +1,4 @@
-package rest_with_spring_boot_and_java_erudio.entities;
+package rest_with_spring_boot_and_java_erudio.data.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

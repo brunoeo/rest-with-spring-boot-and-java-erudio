@@ -1,7 +1,7 @@
-package rest_with_spring_boot_and_java_erudio.mappers;
+package rest_with_spring_boot_and_java_erudio.domain.mappers;
 
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
-import rest_with_spring_boot_and_java_erudio.entities.Person;
+import rest_with_spring_boot_and_java_erudio.data.entities.Person;
 
 public class PersonMapper {
 

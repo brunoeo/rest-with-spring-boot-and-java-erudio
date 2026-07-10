@@ -1,12 +1,12 @@
-package rest_with_spring_boot_and_java_erudio.services;
+package rest_with_spring_boot_and_java_erudio.domain.services;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
-import rest_with_spring_boot_and_java_erudio.entities.Person;
-import rest_with_spring_boot_and_java_erudio.exception.ExceptionResponse;
-import rest_with_spring_boot_and_java_erudio.mappers.PersonMapper;
-import rest_with_spring_boot_and_java_erudio.repositories.PersonRepository;
+import rest_with_spring_boot_and_java_erudio.data.entities.Person;
+import rest_with_spring_boot_and_java_erudio.config.exception.ExceptionResponse;
+import rest_with_spring_boot_and_java_erudio.domain.mappers.PersonMapper;
+import rest_with_spring_boot_and_java_erudio.data.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;

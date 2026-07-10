@@ -1,15 +1,12 @@
 package rest_with_spring_boot_and_java_erudio.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rest_with_spring_boot_and_java_erudio.dto.PersonDTO;
-import rest_with_spring_boot_and_java_erudio.exception.ExceptionResponse;
-import rest_with_spring_boot_and_java_erudio.services.PersonService;
-import rest_with_spring_boot_and_java_erudio.util.AppResponse;
-import rest_with_spring_boot_and_java_erudio.util.DataResponse;
-
-import java.util.List;
+import rest_with_spring_boot_and_java_erudio.config.exception.ExceptionResponse;
+import rest_with_spring_boot_and_java_erudio.domain.services.PersonService;
+import rest_with_spring_boot_and_java_erudio.config.util.AppResponse;
+import rest_with_spring_boot_and_java_erudio.config.util.DataResponse;
 
 @RestController
 @RequestMapping("/person")

@@ -1,4 +1,4 @@
-package rest_with_spring_boot_and_java_erudio.util;
+package rest_with_spring_boot_and_java_erudio.config.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
